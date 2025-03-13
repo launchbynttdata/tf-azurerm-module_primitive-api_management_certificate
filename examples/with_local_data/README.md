@@ -59,7 +59,7 @@ provider "azurerm" {
 | <a name="input_publisher_email"></a> [publisher\_email](#input\_publisher\_email) | The email of publisher/company. | `string` | `"launchdso@nttdata.com"` | no |
 | <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Should the API Management Service be accessible from the public internet?<br>    This option is applicable only to the Management plane, not the API gateway or Developer portal.<br>    It is required to be true on the creation.<br>    For sku=Developer/Premium and network\_type=Internal, it must be true.<br>    It can only be set to false if there is at least one approve private endpoint connection. | `bool` | `true` | no |
 | <a name="input_virtual_network_type"></a> [virtual\_network\_type](#input\_virtual\_network\_type) | The type of virtual network you want to use, valid values include: None, External, Internal.<br>    External and Internal are only supported in the SKUs - Premium and Developer | `string` | `"None"` | no |
-| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `"terratest-certificate"` | no |
 | <a name="input_data"></a> [data](#input\_data) | base64 encoded pfx bundle containing the certificate | `string` | `null` | no |
 | <a name="input_password"></a> [password](#input\_password) | the password used with the pfx bundle containing the certificate | `string` | `null` | no |
 | <a name="input_key_vault_secret_id"></a> [key\_vault\_secret\_id](#input\_key\_vault\_secret\_id) | key vault secret identifier containing the certificate | `string` | `null` | no |

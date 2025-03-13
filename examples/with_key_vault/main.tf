@@ -10,6 +10,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+data "azurerm_client_config" "current" {}
+
 data "external" "certificate" {
   program = ["bash", "create_certificate.sh"]
 }
@@ -39,6 +41,17 @@ module "resource_group" {
   location = var.region
 
   tags = merge(var.tags, { resource_name = module.resource_names["resource_group"].standard })
+}
+
+module "certificate_deployment_role_assignment" {
+  source  = "terraform.registry.launch.nttdata.com/module_primitive/role_assignment/azurerm"
+  version = "~> 1.0"
+
+  principal_id         = data.azurerm_client_config.current.object_id
+  role_definition_name = "Key Vault Administrator"
+  scope                = module.resource_group.id
+
+  depends_on = [module.resource_group]
 }
 
 module "user_managed_identity" {
@@ -80,7 +93,7 @@ module "apim" {
 
 module "key_vault" {
   source  = "terraform.registry.launch.nttdata.com/module_primitive/key_vault/azurerm"
-  version = "~> 1.0"
+  version = "~> 2.0"
 
   key_vault_name = module.resource_names["key_vault"].minimal_random_suffix
   resource_group = {
@@ -88,20 +101,18 @@ module "key_vault" {
     location = var.region
   }
 
+  enable_rbac_authorization = true
+
+  certificates = {
+    (var.name) = {
+      contents = data.external.certificate.result.pfx
+      password = ""
+    }
+  }
+
   custom_tags = merge(var.tags, { resource_name = module.resource_names["key_vault"].standard })
 
-  depends_on = [module.resource_group]
-}
-
-module "key_vault_secret" {
-  source  = "terraform.registry.launch.nttdata.com/module_primitive/key_vault_secret/azurerm"
-  version = "~> 1.0"
-
-  key_vault_id = module.key_vault.key_vault_id
-  name         = var.secret_name
-  value        = data.external.certificate.result.pfx
-
-  depends_on = [module.key_vault]
+  depends_on = [module.certificate_deployment_role_assignment]
 }
 
 module "role_assignment" {
@@ -125,8 +136,8 @@ module "apim_certificate" {
   data     = var.data
   password = var.password
 
-  key_vault_secret_id          = "https://${module.key_vault.key_vault_name}.vault.azure.net/secrets/${module.key_vault_secret.name}"
+  key_vault_secret_id          = "https://${module.key_vault.key_vault_name}.vault.azure.net/secrets/${var.name}"
   key_vault_identity_client_id = module.user_managed_identity.client_id
 
-  depends_on = [module.apim, module.key_vault_secret, module.role_assignment]
+  depends_on = [module.apim, module.role_assignment]
 }

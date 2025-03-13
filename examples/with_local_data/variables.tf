@@ -119,7 +119,7 @@ variable "virtual_network_type" {
 variable "name" {
   type        = string
   description = "name of the certificate"
-  default     = null
+  default     = "terratest-certificate"
   validation {
     condition     = var.name == null || can(regex("^[a-zA-Z0-9-]{1,50}$", var.name))
     error_message = "The certificate name can only contain alphanumeric characters and dashes and must be between 1 and 50 characters long."

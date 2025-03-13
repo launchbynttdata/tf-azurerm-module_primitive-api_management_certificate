@@ -59,6 +59,8 @@ module "apim" {
   virtual_network_type = var.virtual_network_type
 
   tags = merge(var.tags, { resource_name = module.resource_names["api_management"].standard })
+
+  depends_on = [module.resource_group]
 }
 
 module "apim_certificate" {
@@ -74,4 +76,5 @@ module "apim_certificate" {
   key_vault_secret_id          = var.key_vault_secret_id
   key_vault_identity_client_id = var.key_vault_identity_client_id
 
+  depends_on = [module.apim]
 }

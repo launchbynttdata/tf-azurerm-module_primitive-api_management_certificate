@@ -26,6 +26,7 @@ provider "azurerm" {
 
 | Name | Version |
 |------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.117.1 |
 | <a name="provider_external"></a> [external](#provider\_external) | 2.3.4 |
 
 ## Modules
@@ -34,10 +35,10 @@ provider "azurerm" {
 |------|--------|---------|
 | <a name="module_resource_names"></a> [resource\_names](#module\_resource\_names) | terraform.registry.launch.nttdata.com/module_library/resource_name/launch | ~> 2.0 |
 | <a name="module_resource_group"></a> [resource\_group](#module\_resource\_group) | terraform.registry.launch.nttdata.com/module_primitive/resource_group/azurerm | ~> 1.0 |
+| <a name="module_certificate_deployment_role_assignment"></a> [certificate\_deployment\_role\_assignment](#module\_certificate\_deployment\_role\_assignment) | terraform.registry.launch.nttdata.com/module_primitive/role_assignment/azurerm | ~> 1.0 |
 | <a name="module_user_managed_identity"></a> [user\_managed\_identity](#module\_user\_managed\_identity) | terraform.registry.launch.nttdata.com/module_primitive/user_managed_identity/azurerm | ~> 1.0 |
 | <a name="module_apim"></a> [apim](#module\_apim) | terraform.registry.launch.nttdata.com/module_primitive/api_management/azurerm | ~> 1.0 |
-| <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | terraform.registry.launch.nttdata.com/module_primitive/key_vault/azurerm | ~> 1.0 |
-| <a name="module_key_vault_secret"></a> [key\_vault\_secret](#module\_key\_vault\_secret) | terraform.registry.launch.nttdata.com/module_primitive/key_vault_secret/azurerm | ~> 1.0 |
+| <a name="module_key_vault"></a> [key\_vault](#module\_key\_vault) | terraform.registry.launch.nttdata.com/module_primitive/key_vault/azurerm | ~> 2.0 |
 | <a name="module_role_assignment"></a> [role\_assignment](#module\_role\_assignment) | terraform.registry.launch.nttdata.com/module_primitive/role_assignment/azurerm | ~> 1.0 |
 | <a name="module_apim_certificate"></a> [apim\_certificate](#module\_apim\_certificate) | ../.. | n/a |
 
@@ -45,6 +46,7 @@ provider "azurerm" {
 
 | Name | Type |
 |------|------|
+| [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
 | [external_external.certificate](https://registry.terraform.io/providers/hashicorp/external/latest/docs/data-sources/external) | data source |
 
 ## Inputs
@@ -63,12 +65,11 @@ provider "azurerm" {
 | <a name="input_publisher_email"></a> [publisher\_email](#input\_publisher\_email) | The email of publisher/company. | `string` | `"launchdso@nttdata.com"` | no |
 | <a name="input_public_network_access_enabled"></a> [public\_network\_access\_enabled](#input\_public\_network\_access\_enabled) | Should the API Management Service be accessible from the public internet?<br>    This option is applicable only to the Management plane, not the API gateway or Developer portal.<br>    It is required to be true on the creation.<br>    For sku=Developer/Premium and network\_type=Internal, it must be true.<br>    It can only be set to false if there is at least one approve private endpoint connection. | `bool` | `true` | no |
 | <a name="input_virtual_network_type"></a> [virtual\_network\_type](#input\_virtual\_network\_type) | The type of virtual network you want to use, valid values include: None, External, Internal.<br>    External and Internal are only supported in the SKUs - Premium and Developer | `string` | `"None"` | no |
-| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `"terratest-certificate"` | no |
 | <a name="input_data"></a> [data](#input\_data) | base64 encoded pfx bundle containing the certificate | `string` | `null` | no |
 | <a name="input_password"></a> [password](#input\_password) | the password used with the pfx bundle containing the certificate | `string` | `null` | no |
 | <a name="input_key_vault_secret_id"></a> [key\_vault\_secret\_id](#input\_key\_vault\_secret\_id) | key vault secret identifier containing the certificate | `string` | `null` | no |
 | <a name="input_key_vault_identity_client_id"></a> [key\_vault\_identity\_client\_id](#input\_key\_vault\_identity\_client\_id) | the user assigned managed identity to retrieve the certificate with. defaults to the system identity of the APIM | `string` | `null` | no |
-| <a name="input_secret_name"></a> [secret\_name](#input\_secret\_name) | name of the key vault secret | `string` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource. | `map(string)` | `{}` | no |
 
 ## Outputs

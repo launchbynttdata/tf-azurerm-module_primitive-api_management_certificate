@@ -7,6 +7,3 @@ virtual_network_type = "None"
 
 # certificate variables
 name = "terratest-certificate"
-
-# key vault variables
-secret_name = "terratest-certificate" # pragma: allowlist secret

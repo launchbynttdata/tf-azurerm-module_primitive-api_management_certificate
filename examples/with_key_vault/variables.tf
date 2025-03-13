@@ -127,7 +127,7 @@ variable "virtual_network_type" {
 variable "name" {
   type        = string
   description = "name of the certificate"
-  default     = null
+  default     = "terratest-certificate"
   validation {
     condition     = var.name == null || can(regex("^[a-zA-Z0-9-]{1,50}$", var.name))
     error_message = "The certificate name can only contain alphanumeric characters and dashes and must be between 1 and 50 characters long."
@@ -168,18 +168,6 @@ variable "key_vault_identity_client_id" {
   validation {
     condition     = var.key_vault_identity_client_id == null || can(regex("^[a-fA-F0-9-]+$", var.key_vault_identity_client_id))
     error_message = "the key vault identity client ID must be a valid GUID"
-  }
-}
-
-# Key vault settings
-
-variable "secret_name" {
-  type        = string
-  description = "name of the key vault secret"
-  default     = null
-  validation {
-    condition     = var.secret_name == null || can(regex("^[a-zA-Z0-9-]{1,50}$", var.secret_name))
-    error_message = "The secret name can only contain alphanumeric characters and dashes and must be between 1 and 50 characters long."
   }
 }
 

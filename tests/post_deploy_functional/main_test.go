@@ -30,6 +30,7 @@ func TestApiManagementModule(t *testing.T) {
 	ctx := types.CreateTestContextBuilder().
 		SetTestConfig(&testimpl.ThisTFModuleConfig{}).
 		SetTestConfigFolderName(testConfigsExamplesFolderDefault).
+		SetTestConfigFileName(infraTFVarFileNameDefault).
 		SetTestSpecificFlags(map[string]types.TestFlags{
 			// identity_ids changes from `null` to `[]` after the apply
 			// terraform v1.10 does not seem to have this issue but this particular example requires v1.5 for now

@@ -3,7 +3,7 @@ golang 1.22.10
 golangci-lint 1.63.4
 pre-commit 3.3.3
 regula 3.2.1 # https://github.com/launchbynttdata/asdf-regula
-terraform 1.10.3
+terraform 1.5.5 # key vault module requires terraform version <= 1.5
 terraform-docs 0.16.0
 terragrunt 0.39.2
 tflint 0.48.0
