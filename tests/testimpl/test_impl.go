@@ -26,7 +26,7 @@ func TestApiManagementModule(t *testing.T, ctx types.TestContext) {
 		t.Fatalf("Unable to get credentials: %e\n", err)
 	}
 
-	t.Run("doesApiManagementBackendExist", func(t *testing.T) {
+	t.Run("doesApiManagementCertificateExist", func(t *testing.T) {
 		resourceGroupName := terraform.Output(t, ctx.TerratestTerraformOptions(), "resource_group_name")
 		serviceName := terraform.Output(t, ctx.TerratestTerraformOptions(), "api_management_name")
 		certificateName := terraform.Output(t, ctx.TerratestTerraformOptions(), "certificate_name")
@@ -40,12 +40,12 @@ func TestApiManagementModule(t *testing.T, ctx types.TestContext) {
 
 		certificateClient, err := apiManagement.NewCertificateClient(subscriptionId, credential, &options)
 		if err != nil {
-			t.Fatalf("Error getting API Management backend client: %v", err)
+			t.Fatalf("Error getting API Management certificate client: %v", err)
 		}
 
 		response, err := certificateClient.Get(context.Background(), resourceGroupName, serviceName, certificateName, nil)
 		if err != nil {
-			t.Fatalf("Error getting API Management backend: %v", err)
+			t.Fatalf("Error getting API Management certificate: %v", err)
 		}
 
 		assert.Equal(t, certificateThumbprint, *response.Properties.Thumbprint)

@@ -10,7 +10,7 @@ variable "resource_group_name" {
 
 variable "api_management_name" {
   type        = string
-  description = "name of the APIM in which this backend will de deployed"
+  description = "name of the APIM in which this certificate will de deployed"
   default     = null
   validation {
     condition     = can(regex("^[a-zA-Z0-9-]{1,50}$", var.api_management_name))

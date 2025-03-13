@@ -134,7 +134,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | name of the resource group where the APIM exists | `string` | `null` | no |
-| <a name="input_api_management_name"></a> [api\_management\_name](#input\_api\_management\_name) | name of the APIM in which this backend will de deployed | `string` | `null` | no |
+| <a name="input_api_management_name"></a> [api\_management\_name](#input\_api\_management\_name) | name of the APIM in which this certificate will de deployed | `string` | `null` | no |
 | <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `null` | no |
 | <a name="input_data"></a> [data](#input\_data) | base64 encoded pfx bundle containing the certificate | `string` | `null` | no |
 | <a name="input_password"></a> [password](#input\_password) | the password used with the pfx bundle containing the certificate | `string` | `null` | no |
