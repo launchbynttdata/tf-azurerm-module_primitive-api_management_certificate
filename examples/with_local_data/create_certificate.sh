@@ -3,11 +3,11 @@
 which 'jq' >/dev/null 2>&1 || { echo 'jq is not installed'; exit 1; }
 which 'openssl' >/dev/null 2>&1 || { echo 'openssl is not installed'; exit 1; }
 
-cd $(mktemp -d)
+if [ ! -f "test.pfx" ]; then
+  openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout test.key -out test.crt \
+    -subj "/CN=terratest.launch.nttdata.com" >/dev/null 2>&1
 
-openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout server.key -out server.crt \
-  -subj "/CN=terratest.launch.nttdata.com" >/dev/null 2>&1
+  openssl pkcs12 -export -out test.pfx -inkey test.key -in test.crt -passout pass: >/dev/null 2>&1
+fi
 
-openssl pkcs12 -export -out server.pfx -inkey server.key -in server.crt -passout pass: >/dev/null 2>&1
-
-jq -cn --arg data "$(cat server.pfx | base64 -w 0)" '{pfx: $data}'
+jq -cn --arg data "$(cat test.pfx | base64 -w 0)" '{pfx: $data}'

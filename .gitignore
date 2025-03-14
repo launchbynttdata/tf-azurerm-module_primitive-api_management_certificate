@@ -68,4 +68,5 @@ azure_env.sh
 *.pem
 *.cer
 *.crt
+*.key
 *.pfx
