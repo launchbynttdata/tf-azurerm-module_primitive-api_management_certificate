@@ -136,8 +136,8 @@ module "apim_certificate" {
   data     = var.data
   password = var.password
 
-  key_vault_secret_id          = "https://${module.key_vault.key_vault_name}.vault.azure.net/secrets/${var.name}"
-  key_vault_identity_client_id = module.user_managed_identity.client_id
+  key_vault_secret_id          = coalesce(var.key_vault_secret_id, "https://${module.key_vault.key_vault_name}.vault.azure.net/secrets/${var.name}")
+  key_vault_identity_client_id = coalesce(var.key_vault_identity_client_id, module.user_managed_identity.client_id)
 
   depends_on = [module.apim, module.role_assignment]
 }

@@ -105,19 +105,13 @@ If `make check` target is successful, developer is good to commit the code to pr
 - runs `conftests`. `conftests` make sure `policy` checks are successful.
 - runs `terratest`. This is integration test suit.
 - runs `opa` tests
-<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- BEGIN_TF_DOCS -->
 ## Requirements
 
 | Name | Version |
 |------|---------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | ~> 1.0 |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.117 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | 3.117.1 |
 
 ## Modules
 
@@ -133,13 +127,13 @@ No modules.
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | name of the resource group where the APIM exists | `string` | `null` | no |
 | <a name="input_api_management_name"></a> [api\_management\_name](#input\_api\_management\_name) | name of the APIM in which this certificate will de deployed | `string` | `null` | no |
-| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `null` | no |
 | <a name="input_data"></a> [data](#input\_data) | base64 encoded pfx bundle containing the certificate | `string` | `null` | no |
-| <a name="input_password"></a> [password](#input\_password) | the password used with the pfx bundle containing the certificate | `string` | `null` | no |
-| <a name="input_key_vault_secret_id"></a> [key\_vault\_secret\_id](#input\_key\_vault\_secret\_id) | key vault secret identifier containing the certificate | `string` | `null` | no |
 | <a name="input_key_vault_identity_client_id"></a> [key\_vault\_identity\_client\_id](#input\_key\_vault\_identity\_client\_id) | the user assigned managed identity to retrieve the certificate with. defaults to the system identity of the APIM | `string` | `null` | no |
+| <a name="input_key_vault_secret_id"></a> [key\_vault\_secret\_id](#input\_key\_vault\_secret\_id) | key vault secret identifier containing the certificate | `string` | `null` | no |
+| <a name="input_name"></a> [name](#input\_name) | name of the certificate | `string` | `null` | no |
+| <a name="input_password"></a> [password](#input\_password) | the password used with the pfx bundle containing the certificate | `string` | `null` | no |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | name of the resource group where the APIM exists | `string` | `null` | no |
 
 ## Outputs
 
@@ -148,4 +142,4 @@ No modules.
 | <a name="output_certificate_id"></a> [certificate\_id](#output\_certificate\_id) | The Azure Resource ID of the API Management certificate |
 | <a name="output_certificate_name"></a> [certificate\_name](#output\_certificate\_name) | The resource name of the API Management certificate |
 | <a name="output_certificate_thumbprint"></a> [certificate\_thumbprint](#output\_certificate\_thumbprint) | The thumbprint of the API Management certificate |
-<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- END_TF_DOCS -->
