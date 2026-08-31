@@ -70,7 +70,7 @@ module "apim_certificate" {
   resource_group_name = module.resource_group.name
 
   name     = var.name
-  data     = data.external.certificate.result.pfx
+  data     = coalesce(var.data, data.external.certificate.result.pfx)
   password = var.password
 
   key_vault_secret_id          = var.key_vault_secret_id
