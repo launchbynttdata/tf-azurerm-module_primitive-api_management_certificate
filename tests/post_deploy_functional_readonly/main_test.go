@@ -21,8 +21,7 @@ import (
 )
 
 const (
-	// Currently read-only tests are designed only to run on individual examples
-	testConfigsExamplesFolderDefault = "../../examples/with_local_data"
+	testConfigsExamplesFolderDefault = "../../examples"
 	infraTFVarFileNameDefault        = "test.tfvars"
 )
 
