@@ -16,6 +16,21 @@ data "external" "certificate" {
   program = ["bash", "create_certificate.sh"]
 }
 
+# az login as a user vs CI OIDC (service principal) must send matching principal_type.
+data "external" "current_principal_type" {
+  program = ["bash", "-c", <<-EOT
+    set -euo pipefail
+    t="$(az account show --query user.type -o tsv)"
+    case "$t" in
+      user) pt=User ;;
+      servicePrincipal) pt=ServicePrincipal ;;
+      *) pt=ServicePrincipal ;;
+    esac
+    jq -cn --arg pt "$pt" '{principal_type:$pt}'
+  EOT
+  ]
+}
+
 module "resource_names" {
   source  = "terraform.registry.launch.nttdata.com/module_library/resource_name/launch"
   version = "~> 2.0"
@@ -48,6 +63,7 @@ module "certificate_deployment_role_assignment" {
   version = "~> 1.0"
 
   principal_id         = data.azurerm_client_config.current.object_id
+  principal_type       = data.external.current_principal_type.result.principal_type
   role_definition_name = "Key Vault Administrator"
   scope                = module.resource_group.id
 
