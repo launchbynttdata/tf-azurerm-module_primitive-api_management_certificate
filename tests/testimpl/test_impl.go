@@ -51,3 +51,7 @@ func TestComposableApiManagementModule(t *testing.T, ctx types.TestContext) {
 		assert.Equal(t, certificateThumbprint, *response.Properties.Thumbprint)
 	})
 }
+
+func TestComposableReadonlyApiManagementModule(t *testing.T, ctx types.TestContext) {
+	TestComposableApiManagementModule(t, ctx)
+}
